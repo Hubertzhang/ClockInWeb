@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h3 class="center">{{ user.name }}，你好！</h3>
+        {% if activity %}
+            {% if join %}
+                <h3 class="center">你已经参加了{{ activity }}。</h3>
+            {% else %}
+                <h3 class="center">你参加{{ activity }}了吗？</h3>
+                <form class="center" action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-success m-btn" value="参加了">
+                </form>
+            {% endif %}
+        {% else %}
+            <h3 class="center">当前并没有需要统计的活动。</h3>
+        {% endif %}
+    {% else %}
+        <h3>请先登陆或者注册。</h3>
+    {% endif %}
+{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/index.css"/>
+{% endblock %}
