@@ -19,12 +19,16 @@ def index(request):
     if len(current_lists) == 0:
         return render(request, "index.html")
     current_list = current_lists[0]
+    is_in = request.user in current_list.persons.all()
+    if request.method == 'POST':
+        if is_in:
+            current_list.persons.remove(request.user)
+        else:
+            current_list.persons.add(request.user)
+        return HttpResponseRedirect('/')
     if request.user in current_list.persons.all():
         return render(request, "index.html", {'activity': current_list.title,
                                               'join': True})
-    if request.method == 'POST':
-        current_list.persons.add(request.user)
-        return HttpResponseRedirect('/')
     return render(request, "index.html", {'activity': current_list.title,
                                           'join': False})
 

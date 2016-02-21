@@ -6,6 +6,10 @@
         {% if activity %}
             {% if join %}
                 <h3 class="center">你已经参加了{{ activity }}。</h3>
+                <form class="center" action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger m-btn" value="我没参加">
+                </form>
             {% else %}
                 <h3 class="center">你参加{{ activity }}了吗？</h3>
                 <form class="center" action="" method="post" enctype="multipart/form-data">
